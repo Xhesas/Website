@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Sitemap declarations
+Sitemap: https://xhesas.com/sitemap.xml
+Sitemap: https://xhesas.com/sitemap-index.xml

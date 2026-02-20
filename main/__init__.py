@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, make_response
-from werkzeug.utils import send_file
+from flask import Flask, render_template, make_response, send_file
 from werkzeug.exceptions import HTTPException
 import numpy as np
 
@@ -24,7 +23,7 @@ def route_index():
 @app.route('/style')
 @app.route('/style.css')
 def route_style():
-    return send_file('style.css', request.environ)
+    return send_file('style.css')
 
 @app.route('/about')
 @app.route('/about.html')
@@ -33,15 +32,15 @@ def route_about():
 
 @app.route('/sitemap.xml')
 def route_sitemap():
-    return send_file('robots/sitemap.xml', request.environ)
+    return send_file('robots/sitemap.xml')
 
 @app.route('/sitemap-index.xml')
 def route_sitemap_index():
-    return send_file('robots/sitemap-index.xml', request.environ)
+    return send_file('robots/sitemap-index.xml')
 
 @app.route('/robots.txt')
 def route_robots():
-    return send_file('robots/robots.txt', request.environ)
+    return send_file('robots/robots.txt')
 
 @app.errorhandler(HTTPException)
 def route_exception(e):

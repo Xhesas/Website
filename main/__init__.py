@@ -1,4 +1,6 @@
 import argparse
+from os import chdir
+from os.path import dirname, abspath
 
 from flask import Flask, render_template, make_response, send_file
 from werkzeug.exceptions import HTTPException
@@ -56,6 +58,7 @@ def route_exception(e):
     ), e.code)
 
 if __name__ == "__main__":
+    chdir(dirname(abspath(__file__)))
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--Debug", action="store_true", help="Activate debug mode")
     args = parser.parse_args()

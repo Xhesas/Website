@@ -1,6 +1,9 @@
+import argparse
+
 from flask import Flask, render_template, make_response, send_file
 from werkzeug.exceptions import HTTPException
 import numpy as np
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 ERR = [
     {"code": 400,"text": ["Bad request!"]},
@@ -53,4 +56,12 @@ def route_exception(e):
     ), e.code)
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--Debug", action="store_true", help="Activate debug mode")
+    args = parser.parse_args()
+    # set proper wsgi for app if not debug
+    if not args.Debug:
+        app.wsgi_app = ProxyFix(
+            app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+        )
+    app.run(port=5000, debut=args.Debug)
